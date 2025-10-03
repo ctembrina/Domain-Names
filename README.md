@@ -72,8 +72,9 @@ Keep systems and applications up to date to reduce vulnerabilities.
 
 
 <h2>TryHackMe Lab Completion</h2>
+Pyramid of Pain Lab
 <br/>
-<img src="https://i.imgur.com/gyXSiIf.png"height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/OJXt23x.png"height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 
