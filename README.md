@@ -3,47 +3,43 @@
 
 
 <h2>Description</h2>
-In this lab, I explored fundamental concepts of offensive security using a controlled virtual environment. I practiced identifying software vulnerabilities, exploiting misconfigurations, and understanding common attack vectors. The lab emphasized ethical hacking principles, focusing on improving defensive strategies by understanding how attackers think and operate.
-<br />
+In this lab, I explored the identification and classification of  domain names used by attackers to understand their role in the attack lifecycle. This helps in assessing which indicators are easier or harder to change, enabling more effective detection and defense strategies.
 
 
 <h2>Utilities Used</h2>
 
-- <b>VM</b> 
-- <b>GoBuster</b>
+- <b>ANY.RUN interactive online malware analysis sandbox</b> 
+  
 
 
 
 <h2>Lab walk-through:</h2>
 
 <p align="center">
-Using the VM, accessed the fakebank site, opened the terminal by clicking on the Terminal icon on the right of the screen:
+ANY.RUN module executed the malware sample in a sandboxed environment, capturing network activity, C2 domain communications, dropped files, and process behavior. Reviewing indicators for further analysis:
   
 <br/>
-<img src="https://i.imgur.com/zHfInJD.png"height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/uZUJYxU.png"height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Using a command-line security application (GoBuster) I used the following command into the terminal to find potential hidden pages on the FakeBank's website. 
-Command = gobuster -u http://fakebank.thm -w wordlist.txt dir
-(Gobuster scans the website with each word in the list, finding pages that exist on the site also shows the pages in the list of page/directory names status: 200 )
+Reviewed HTTP requests samples, including callbacks and files retrieved from web servers.
 <br />
-<img src="https://i.imgur.com/oscRdzz.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/T4s3VUP.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Found a vulnerability in the report above in the application, an exploit to the Bank. There is a secret bank transfer page found. 
-http://fakebank.htm/bank-transfer ( providing a access to steal from a bank account) 
+Reviewed all sample-initiated network connections, such as C2 communications and file uploads/downloads 
 
 <br/>
-<img src="https://i.imgur.com/YtQJT3Q.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/PZjO6i4.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-The exploit allowed funds to be transferred from one account to another.
+Displays DNS queries by the sample, useful for identifying C2 communications or sandbox detection attempts.
 <br/>
-<img src="https://i.imgur.com/dmavw0I.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/2D0DIIq.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Account page showing a successful transfer:  <br/>
-<img src="https://i.imgur.com/6UDGvJv.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+Reviewed report, indicators showing suspicious domain requests helps identify malicious activity like C2 communication or phishing. Malware may use DNS requests or URL shorteners to hide destinations or evade detection. Extracted domains should be documented as IOCs and blocked or monitored:  <br/>
+<img src="https://i.imgur.com/zjIvMaL.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 
@@ -53,39 +49,25 @@ Account page showing a successful transfer:  <br/>
 
 <h2>Learned Outcomes</h2>
 
-Learned about buffer overflows and privilege escalation
-
-Understood how misconfigurations can be exploited
-
-Reinforced ethical principles and defensive implications
+Learned to review DNS and HTTP requests, identify malicious infrastructure, safely handle shortened URLs, and document findings for incident response.
 
 
 
 <h2>Final Comments</h2>
 
-Attacker was using Gobuster (a fast directory / vhost / DNS brute-forcing tool)
+This lab showed that the malware tried to communicate with several suspicious domains and used techniques like URL shortening to hide its activity. This confirms the system was exposed to potentially harmful activity.
 
-For a financial bank these are the most critical data to protect -
+Recommendations
 
-PII (identity theft risk)
+Block the identified domains and shortened URLs at the firewall and DNS.
 
-Account & payment card data (fraud/theft risk)
+Isolate any affected computers and scan them for malware.
 
-Authentication credentials & biometrics (account takeover risk)
+Add the identified domains and file hashes to monitoring tools to catch future attempts.
 
-Transaction records & financial logs (integrity risk)
+Remind users not to click on unknown links or files.
 
-Internal & regulatory data (compliance and reputational risk)
-
-MY recommendation is to lean on multiple frameworks for some secure coding, some compliance, and some for operational control -  
-
-Dev/Secure coding → OWASP Top 10 + ASVS.
-
-Enterprise security controls → NIST CSF + CIS Controls.
-
-Compliance → PCI DSS, ISO 27001, SOX (depending on regulatory requirements).
-
-Banking-specific oversight → FFIEC Cybersecurity Framework.
+Keep systems and applications up to date to reduce vulnerabilities.
 
 
 
